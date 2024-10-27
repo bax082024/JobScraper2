@@ -12,5 +12,13 @@ class Program
 
     using var playwright = await Playwright.CreateAsync();
     await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false});
+
+    var pageObject = await browser.NewPageAsync();
+
+    await pageObject.GotoAsync(url, new PageGotoOptions {WaitUntil = WaitUntilState.NetworkIdle});
+
+    Console.WriteLine("page opened, you can navigate manualy.");
+
+    await Task.Delay(-1);
   }
 }
